@@ -1,33 +1,58 @@
-Deskripsi & Penjelasan Script (Untuk README atau Laporan)
-Project Title: Spatiotemporal Mangrove Stability Analysis (2019-2024)
+# Spatiotemporal Mangrove Stability Analysis (2019-2024)
 
-Brief Description:
-Script ini adalah alat otomatisasi berbasis Python untuk memantau dinamika perubahan tutupan lahan mangrove selama periode 5 tahun. Alat ini memproses citra satelit multi-temporal untuk mengidentifikasi mana area mangrove yang stabil (tua), sedang berkembang, atau baru tumbuh.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat&logo=python)
+![Sentinel-2](https://img.shields.io/badge/Data-Sentinel--2-green?style=flat&logo=satellite)
 
-Methodology:
+## 🌍 Project Overview
+This project uses Python to monitor mangrove changes over 5 years. By processing satellite imagery from 2019, 2022, and 2024, this tool identifies which mangrove areas are **Stable (Old)**, **Recovering**, or **New**.
 
-Data Processing: Menggunakan library rasterio untuk membaca data spektral Sentinel-2 Level-2A.
+---
 
-Spectral Indexing: Menghitung NDVI (Normalized Difference Vegetation Index) untuk memisahkan vegetasi mangrove dari objek lain dengan nilai ambang batas (threshold) > 0.4.
+## 🔄 Workflow Diagram
+The automated process works as follows:
 
-Spatiotemporal Stacking: Menggunakan logika pixel-based algebraic, di mana masker biner mangrove dari tahun 2019, 2022, dan 2024 dijumlahkan.
+```text
+[Sentinel-2 Input] -> [Calculate NDVI] -> [Binary Masking] -> [Stacking Years] -> [Final Map]
+```
+## ⚙️ Methodology
+1. Spectral Indexing (NDVI)
+To separate mangroves from water and land, we use the Normalized Difference Vegetation Index.
+Formula used:
 
-Rumus: Age Score = Mask_2019 + Mask_2022 + Mask_2024
+NDVI = (NIR - Red) / (NIR + Red)
 
-Classification:
+2. Binary Masking
+We filter the image to create a "Mask" where only mangroves are visible.
 
-Score 3 = Stable Mangrove (Terdeteksi di ketiga tahun).
+If NDVI > 0.4 : Pixel is Mangrove (Value = 1)
 
-Score 2 = Intermediate (Terdeteksi di 2 tahun terakhir).
+If NDVI <= 0.4 : Pixel is Non-Mangrove (Value = 0)
 
-Score 1 = New Growth (Baru terdeteksi di 2024).
+3. Spatiotemporal Logic
+To determine the age/stability of the mangrove, we simply add up the masks from all three years.
 
-Results:
-Script ini menghasilkan dua output utama:
+The Logic:
+Age_Score = Mask_2019 + Mask_2022 + Mask_2024
 
-GeoTIFF Map: Peta klasifikasi umur mangrove yang memiliki georeferensi, siap untuk analisis lebih lanjut di QGIS/ArcGIS.
+## 📊 Classification Results
+The resulting Age Score categorizes the mangrove ecosystem into three distinct stability classes:
 
-Analytical Layout (PNG): Visualisasi komprehensif yang menampilkan perbandingan True Color, False Color (untuk kesehatan vegetasi), NDWI (indeks air), dan Peta Stabilitas Mangrove dalam satu bingkai.
+🟢 Score 3: Stable Mangrove
+Definition: Vegetation detected in all 3 years (2019, 2022, and 2024).
+Interpretation: Represents mature, established forest with the highest potential for Carbon Stock storage and ecosystem resilience.
 
-### Python Script:
-You can view the full automated script [here](./spasio_temporal_2019-2024.py).
+🟡 Score 2: Intermediate
+Definition: Vegetation detected in 2 out of the 3 years.
+Interpretation: Indicates developing forest, recovering areas, or zones experiencing slight dynamic changes.
+
+🔴 Score 1: New Growth
+Definition: Vegetation detected only in 1 year (typically 2024).
+Interpretation: Represents pioneer vegetation, recent planting efforts (reforestation), or new natural expansion.
+
+## 🗺️ Visualization Output
+The script automatically generates a comprehensive layout combining True Color (RGB), False Color (Vegetation Health), and the final Mangrove Stability Map.
+
+## 💻 Python Implementation
+This analysis is fully automated using rasterio for geospatial data handling and numpy for efficient array processing.
+
+[Link to Python Script](./spasio_temporal_2019-2024.py)
