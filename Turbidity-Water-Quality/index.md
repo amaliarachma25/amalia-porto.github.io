@@ -1,29 +1,55 @@
-Project Title
-Coastal Water Quality Monitoring: Turbidity Analysis using Sentinel-2
+# Coastal Water Quality Monitoring: Turbidity Analysis (Sentinel-2)
 
-Description
-This project employs an automated Python workflow to assess water quality in coastal areas (Case Study: Pengambengan Village). By utilizing Sentinel-2 satellite imagery, the script calculates the Normalized Difference Turbidity Index (NDTI) to map sediment distribution and water clarity without the need for expensive in-situ equipment.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Sentinel-2](https://img.shields.io/badge/Data-Sentinel--2-green)
+![Field](https://img.shields.io/badge/Focus-Marine--Biology-blue)
 
-Methodology
-Data Acquisition: Utilizes Sentinel-2 Level-2A multispectral data.
+## 🌍 Project Overview
+This project employs an automated Python workflow to assess water quality in coastal areas, specifically focusing on **Pengambengan Village**. 
 
-Water Masking: Applies the NDWI (Normalized Difference Water Index) using Green and NIR bands to isolate water bodies from land features (NDWI > 0.0).
+By utilizing **Sentinel-2 multispectral imagery**, the script calculates the **Normalized Difference Turbidity Index (NDTI)**. This allows for the mapping of sediment distribution and water clarity over large areas without the immediate need for expensive in-situ equipment, providing a cost-effective solution for coastal management.
 
-Turbidity Indexing: Calculates NDTI using the Red and Green bands to detect suspended sediment.
+---
 
-Formula: NDTI = (Red - Green) / (Red + Green)
+## 🔄 The Automated Workflow
+The processing cycle is designed for speed and precision:
 
-Logic: High reflectance in the Red band relative to Green indicates higher turbidity/sedimentation.
+```text
+[Sentinel-2 Data] -> [NDWI Water Masking] -> [NDTI Calculation] -> [Statistical Analysis] -> [Mapping]
+```
 
-Visualization: Generates a side-by-side comparison of True Color (RGB) and the Turbidity Map for easy interpretation.
+## ⚙️ Methodology
+To ensure the analysis only focuses on water, the script performs a two-step spectral process:
 
-Results
-Visual Layout: A high-resolution map showing clear water (low NDTI) versus turbid water (high NDTI) zones.
+1. Water Masking (NDWI)
+First, we isolate the water bodies from land features (buildings, vegetation, and sand) using the Normalized Difference Water Index:
 
-GeoTIFF Export: A georeferenced raster file of the turbidity values, compatible with QGIS/ArcGIS for further spatial analysis.
+NDWI = (Green - NIR) / (Green + NIR)
 
-Key Technologies
-Python Rasterio Matplotlib Sentinel-2 Remote Sensing Water Quality
+Logic: Only pixels with NDWI > 0.0 are processed for water quality, ensuring land features do not interfere with the turbidity results.
 
-### Python Script:
-You can view the full automated script [here](./Turbidity.py).
+2. Turbidity Indexing (NDTI)
+Once the water is isolated, we calculate the Normalized Difference Turbidity Index to detect suspended sediment:
+
+NDTI = (Red - Green) / (Red + Green)
+
+Key Concept: In coastal waters, a high reflectance in the Red band relative to the Green band indicates a higher concentration of suspended solids or sedimentation.
+
+## 📊 Interpretation Scale
+The NDTI values range from -1 to 1, which we interpret as follows:
+
+Low NDTI (Cooler Colors): Clearer water, low suspended sediment.
+
+High NDTI (Warmer Colors): Turbid water, high sediment concentration, or recent runoff events.
+
+## 🗺️ Visualization & Outputs
+The script generates high-resolution spatial data for decision-making:
+
+Analytical Layout: A side-by-side comparison of True Color (RGB) and the Turbidity Map.
+
+GeoTIFF Export: A georeferenced raster file ready for further spatial analysis in QGIS or ArcGIS.
+
+## 💻 Python Implementation
+This analysis is built for scalability, utilizing rasterio for heavy geospatial data handling and matplotlib for scientific visualization.
+
+[Link to Python Script](./Turbidity.py)
