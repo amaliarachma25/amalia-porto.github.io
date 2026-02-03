@@ -24,3 +24,6 @@ GeoTIFF Export: A georeferenced raster file of the turbidity values, compatible 
 
 Key Technologies
 Python Rasterio Matplotlib Sentinel-2 Remote Sensing Water Quality
+
+### Python Script:
+You can view the full automated script [here](./Turbidity.py).
