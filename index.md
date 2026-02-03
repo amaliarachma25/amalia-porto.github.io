@@ -5,5 +5,5 @@ This site hosts technical documentation and automated scripts for my various spa
 
 ### 📂 My Projects:
 1. [Spatiotemporal Mangrove Stability Analysis 2019-2024](./mangrove-analysis/)
-2. [Turbidity and Water Quality Mapping (Pengambengan Village)](./TurbidityandWaterQuality/)
+2. [Turbidity and Water Quality Mapping (Pengambengan Village)](./Turbidity and Water Quality/)
 3. [Identification of Potential Fishing Zones](./project-fishing/)
