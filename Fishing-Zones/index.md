@@ -22,3 +22,6 @@ Geospatial Data: Exports a high-precision GeoTIFF of the chlorophyll values for 
 
 Keywords
 Remote Sensing Python Sentinel-2 Chlorophyll-a NDCI Marine Analytics Fishing Zones
+
+### Python Script:
+You can view the full automated script [here](./fishing_zone.py).
