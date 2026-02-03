@@ -28,3 +28,6 @@ Script ini menghasilkan dua output utama:
 GeoTIFF Map: Peta klasifikasi umur mangrove yang memiliki georeferensi, siap untuk analisis lebih lanjut di QGIS/ArcGIS.
 
 Analytical Layout (PNG): Visualisasi komprehensif yang menampilkan perbandingan True Color, False Color (untuk kesehatan vegetasi), NDWI (indeks air), dan Peta Stabilitas Mangrove dalam satu bingkai.
+
+### Python Script:
+You can view the full automated script [here](./spasio_temporal_2019-2024.py).
