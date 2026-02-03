@@ -1,27 +1,57 @@
-Project Title
-Potential Fishing Zone (PFZ) Identification using Sentinel-2 Imagery
+# Potential Fishing Zone (PFZ) Identification (Sentinel-2)
 
-Project Description
-This project provides an automated Python workflow for identifying Potential Fishing Zones (PFZ) by mapping Chlorophyll-a concentration in coastal waters. Using Sentinel-2 satellite data, the script calculates the Normalized Difference Chlorophyll Index (NDCI), a key indicator of phytoplankton abundance which correlates directly with fish presence. This tool assists in sustainable marine resource management and efficient fishing operations.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Sentinel-2](https://img.shields.io/badge/Data-Sentinel--2-green)
+![Sector](https://img.shields.io/badge/Focus-Marine--Resources-orange)
 
-Methodology
-Data Processing: Loads Sentinel-2 Multispectral Instrument (MSI) data.
+## 🌍 Project Overview
+This project provides an automated Python workflow for identifying **Potential Fishing Zones (PFZ)** by mapping Chlorophyll-a concentration in coastal waters. 
 
-Water Masking: Isolates water bodies using the NDWI (Normalized Difference Water Index) to prevent false readings from land.
+Using **Sentinel-2 satellite data**, the script calculates the **Normalized Difference Chlorophyll Index (NDCI)**, a key indicator of phytoplankton abundance. Since phytoplankton is the base of the marine food web, its presence correlates directly with fish aggregation, making this tool vital for sustainable marine resource management and efficient fishing operations.
 
-Chlorophyll Analysis (NDCI): Utilizes the specialized Red-Edge band (B5) and Red band (B4) to detect chlorophyll concentration.
+---
 
-Formula: NDCI = (RedEdge - Red) / (RedEdge + Red)
+## 🔄 The Automated Workflow
+The system processes multispectral data through a rigorous masking and indexing pipeline:
 
-Validation System: Includes a built-in validation logic that compares the NDCI result against a True Color (RGB) reference to manually filter out cloud artifacts or bottom reflectance errors.
+```text
+[Sentinel-2 Data] -> [Water Masking (NDWI)] -> [Chlorophyll Index (NDCI)] -> [Cloud/Error Validation] -> [PFZ Mapping]
+```
 
-Results & Output
+## ⚙️ Methodology
+The identification of fishing zones relies on precise spectral mathematics using specific Sentinel-2 bands.
+
+1. Water Body Isolation
+Before analyzing biological content, we must strictly isolate the water surface to prevent false readings from land or shallow seabeds. We use the Normalized Difference Water Index (NDWI):
+
+NDWI = (Green - NIR) / (Green + NIR)
+
+Logic: Only pixels identified as pure water are passed to the next stage.
+
+2. Chlorophyll-a Detection (NDCI)
+To detect phytoplankton, we utilize the specialized Red-Edge Band (Band 5), which is highly sensitive to vegetation in water. The NDCI formula used is:
+
+NDCI = (RedEdge - Red) / (RedEdge + Red)
+
+Why Red-Edge? The Red-Edge band captures the specific reflection peak of chlorophyll that standard Red/Green bands often miss in turbid coastal waters.
+
+Interpretation: Higher NDCI values indicate higher phytoplankton density, signaling a potential feeding ground for fish schools (PFZ).
+
+3. Validation Logic
+The script includes a built-in validation system that compares the NDCI result against a True Color (RGB) reference. This step is crucial for manually filtering out:
+
+Cloud artifacts (which can mimic high reflectance).
+
+Bottom reflectance in very shallow waters.
+
+## 📊 Results & Outputs
+The tool generates actionable insights for marine analysts:
+
 Analytical Dashboard: A dual-panel visualization showing the Natural View vs. Chlorophyll Distribution, complete with statistical validation metrics.
 
-Geospatial Data: Exports a high-precision GeoTIFF of the chlorophyll values for further analysis in GIS software (QGIS/ArcGIS).
+Geospatial Export: A high-precision GeoTIFF of the chlorophyll values, ready for integration with Sea Surface Temperature (SST) data in QGIS/ArcGIS.
 
-Keywords
-Remote Sensing Python Sentinel-2 Chlorophyll-a NDCI Marine Analytics Fishing Zones
+## 💻 Python Implementation
+This script demonstrates advanced usage of rasterio for spectral indexing and matplotlib for creating publication-ready marine maps.
 
-### Python Script:
-You can view the full automated script [here](./fishing_zone.py).
+[Link to Python Script](./fishing_zone.py)
