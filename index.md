@@ -5,5 +5,5 @@ This site hosts technical documentation and automated scripts for my various spa
 
 ### 📂 My Projects:
 1. [Spatiotemporal Mangrove Stability Analysis 2019-2024](./project-mangrove/)
-2. [Sea Surface Temperature Visualization (NOAA)](./project-noaa-sst/)
-3. [Aquaculture Mapping Analysis](./project-aquaculture/)
+2. [Turbidity and Water Quality Mapping (Pengambengan Village)](./project-water-sst/)
+3. [Identification of Potential Fishing Zones](./project-fishing/)
